@@ -3,20 +3,26 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="8dp">
+    android:padding="0dp">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/tvTitulo"
         android:textStyle="bold"
-        android:textSize="16sp"
-        android:maxLines="1"/>
+        android:textSize="16dp"
+        android:maxLines="1"
+        android:padding="6dp"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/tvDescricao"
         android:maxLines="2"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#DFDFDF" />
 
 </LinearLayout>

@@ -1,7 +1,9 @@
 package com.example.logonrmlocal.notepadapp.view.main
 
+import android.app.Activity
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
@@ -12,6 +14,7 @@ import android.view.View
 import android.widget.LinearLayout
 import com.example.logonrmlocal.notepadapp.R
 import com.example.logonrmlocal.notepadapp.model.Nota
+import com.example.logonrmlocal.notepadapp.view.formulario.FormularioActivity
 
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
@@ -21,6 +24,7 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var mainViewModel: MainViewModel
     var adapter: MainListAdapter? = null
+    val FORMULARIO_RESQUET_CODE = 5
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,8 +41,9 @@ class MainActivity : AppCompatActivity() {
         mainViewModel.buscarTodos()
 
         fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
+            val formularioIntent = Intent(this, FormularioActivity::class.java)
+            startActivityForResult(formularioIntent, FORMULARIO_RESQUET_CODE)
+
         }
 
     }
@@ -69,12 +74,6 @@ class MainActivity : AppCompatActivity() {
 
 
 
-
-
-
-
-
-
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_main, menu)
@@ -88,6 +87,18 @@ class MainActivity : AppCompatActivity() {
         return when (item.itemId) {
             R.id.action_settings -> true
             else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when(requestCode){
+            FORMULARIO_RESQUET_CODE -> {
+                when(resultCode){
+                    Activity.RESULT_OK -> {mainViewModel.buscarTodos()}
+                    Activity.RESULT_CANCELED -> {}
+                }
+            }
         }
     }
 }
